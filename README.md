@@ -13,8 +13,6 @@ Il permet d’enregistrer automatiquement l’historique du presse-papiers, de l
 # 🛠️ Technologies utilisées
 Swift 5+  
 SwiftUI  
-AppKit (si interactions macOS avancées)  
-Combine  
-UserDefaults / CoreData (selon ton implémentation)  
 Xcode 16+  
-macOS 13+  
+macOS 13+   
+???(AppKit, Combine, UserDefaults / CoreData)
