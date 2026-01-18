@@ -11,8 +11,6 @@ Il permet d’enregistrer automatiquement l’historique du presse-papiers, de l
 🪟 IIntégration dans la barre d'outils  
 🔒 Respect de la vie privée : tout est stocké localement  
 # 🛠️ Technologies utilisées
-Swift 5+  
+Swift 
 SwiftUI  
-Xcode 16+  
-macOS 13+   
-???(AppKit, Combine, UserDefaults / CoreData)
+Xcode (macOS 26)
