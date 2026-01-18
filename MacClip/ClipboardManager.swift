@@ -1,3 +1,11 @@
+//
+//  ClipboardManager.swift
+//  MacClip
+//
+//  Created by Louis FREMEAUX on 18/01/2026.
+//
+
+
 import AppKit
 import Combine
 
@@ -15,11 +23,11 @@ class ClipboardManager: ObservableObject {
         startMonitoring()
     }
 
-    // 🔁 Surveillance du presse-papiers
     func startMonitoring() {
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+        timer = Timer(timeInterval: 1, repeats: true) { _ in
             self.checkPasteboard()
         }
+        RunLoop.main.add(timer!, forMode: .common)
     }
 
     private func checkPasteboard() {
@@ -31,7 +39,6 @@ class ClipboardManager: ObservableObject {
         }
     }
 
-    // 💾 Ajout + sauvegarde
     private func saveNewItem(_ text: String) {
         guard history.first?.content != text else { return }
 
@@ -40,7 +47,6 @@ class ClipboardManager: ObservableObject {
         save()
     }
 
-    // 📂 Chemin fichier
     private var fileURL: URL {
         let dir = FileManager.default.urls(
             for: .applicationSupportDirectory,
@@ -55,19 +61,22 @@ class ClipboardManager: ObservableObject {
         return folder.appendingPathComponent("clipboard.json")
     }
 
-    // 💾 Sauvegarde JSON
     private func save() {
         if let data = try? JSONEncoder().encode(history) {
             try? data.write(to: fileURL)
         }
     }
 
-    // 📥 Chargement au démarrage
     private func load() {
         guard let data = try? Data(contentsOf: fileURL),
               let items = try? JSONDecoder().decode([ClipboardItem].self, from: data)
         else { return }
 
         history = items
+    }
+    
+    public func clear() {
+        try? FileManager.default.removeItem(at: fileURL)
+        history.removeAll()
     }
 }
